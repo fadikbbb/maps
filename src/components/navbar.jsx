@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../contexts/CartContext'; // Import CartContext
+
 function Navbars() {
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
   const [role, setRole] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const { cart } = useContext(CartContext); // Access cart from CartContext
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -24,7 +27,7 @@ function Navbars() {
     }
     fetchData();
   }, []);
-
+  
   useEffect(() => {
     const extractedCategories = [...new Set(products.map(product => product.category))];
     setCategories(extractedCategories);
@@ -41,34 +44,34 @@ function Navbars() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+
   const toggleDropDown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
 
   const renderNavLinks = () => (
     <>
-      <NavLink to={"/"} className="nav-link">Home</NavLink>
-      <NavLink to={"/products"} className="nav-link">Products</NavLink>
-      <HashLink to={"/#about"} className="nav-link">About</HashLink>
-      <HashLink to={"/#services"} className="nav-link">Services</HashLink>
-      <HashLink to={"/#contact"} className="nav-link">Contact Us</HashLink>
+      <NavLink to={"/"} className="lg:border-0 lg:p-0 nav-link">Home</NavLink>
+      <NavLink to={"/products"} className="lg:border-0 lg:p-0 nav-link">Products</NavLink>
+      <HashLink to={"/#about"} className="lg:border-0 lg:p-0 nav-link">About</HashLink>
+      <HashLink to={"/#services"} className="lg:border-0 lg:p-0 nav-link">Services</HashLink>
+      <HashLink to={"/#contact"} className="lg:border-0 lg:p-0 nav-link">Contact Us</HashLink>
       {window.localStorage.getItem("login") === "true" ? (
         role === "admin" ? (
-          <NavLink to={"/dashboard"} className="nav-link">Dashboard</NavLink>
+          <NavLink to={"/dashboard"} className="lg:border-0 lg:p-0 nav-link">Dashboard</NavLink>
         ) : (
-          <NavLink to={"/logout"} className="nav-link">Logout</NavLink>
+          <NavLink to={"/logout"} className="lg:border-0 lg:p-0 nav-link">Logout</NavLink>
         )
       ) : (
         <>
-          <NavLink to={"/login"} className="nav-link">Login</NavLink>
-          <NavLink to={"/signup"} className="nav-link">Signup</NavLink>
+          <NavLink to={"/login"} className="lg:border-0 lg:p-0 nav-link">Login</NavLink>
+          <NavLink to={"/signup"} className="lg:border-0 lg:p-0 nav-link">Signup</NavLink>
         </>
       )}
-      <NavLink to={"/cart"} className="nav-link">Cart</NavLink>
+      <NavLink to={"/cart"} className="lg:border-0 lg:p-0 nav-link">Cart {cart.length > 0 && `(${cart.length})`}</NavLink> {/* Display cart count */}
     </>
   );
 
@@ -76,20 +79,20 @@ function Navbars() {
     <div className="relative">
       <button
         onClick={toggleDropDown}
-        className="nav-link flex items-center"
+        className="lg:border-0 lg:p-0 nav-link group/edit  flex items-center"
       >
         Categories
-        <svg className="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <svg className="ml-2 group-hover/edit:text-cyan-500   h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
         </svg>
       </button>
       <ul className={`absolute left-0 mt-2 w-48 bg-white shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
         {categories.map((category, index) => (
-          <li key={index} className="p-2 hover:bg-gray-100">
-            <NavLink to={`/categories/${category}`} className="text-gray-800 w-full">
+          <NavLink key={index} to={`/categories/${category}`} className="flex w-full hover:bg-gray-100 p-2">
+            <li className="  text-gray-800 ">
               {category}
-            </NavLink>
-          </li>
+            </li>
+          </NavLink>
         ))}
       </ul>
     </div>
@@ -103,7 +106,7 @@ function Navbars() {
             <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
           </svg>
         </button>
-        <Link className="text-xl font-bold" to={"/"}>sham store</Link>
+        <Link className="text-xl font-bold" to={"/"}><img width={100} src='../../لقطة الشاشة 2024-06-28 020339.png'  alt=''/></Link>
       </div>
       <div className="hidden lg:flex lg:items-center lg:space-x-4">
         {renderNavLinks()}
@@ -123,20 +126,20 @@ function Navbars() {
           <li className="relative p-4 border-b">
             <button
               onClick={toggleDropDown}
-              className="flex justify-between items-center text-gray-800"
+              className="flex justify-between group/edit items-center text-gray-800 duration-200 hover:text-cyan-500"
             >
               Categories
-              <svg className="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+              <svg className="ml-2 h-5 w-5 group-hover/edit:text-cyan-500 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" fill='currentColor' d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
               </svg>
             </button>
             <ul className={`absolute left-0 mt-2 w-full bg-white shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
               {categories.map((category, index) => (
-                <li key={index} className="p-2 hover:bg-gray-100">
-                  <NavLink to={`/categories/${category}`} className="text-gray-800">
+                <NavLink key={index} to={`/categories/${category}`} className="text-gray-800">
+                  <li  className="p-2 hover:bg-gray-100">
                     {category}
-                  </NavLink>
-                </li>
+                  </li>
+                </NavLink>
               ))}
             </ul>
           </li>
@@ -147,7 +150,7 @@ function Navbars() {
   );
 }
 
-export default Navbars;
+
 
 
 function SearchForm({ products }) {
@@ -192,7 +195,7 @@ function SearchForm({ products }) {
         </button>
       </form>
 
-      <ul className={`outline ${searchQuery && searchQuery.length > 0? 'outline-1 outline-cyan-500':'outline-none'}  scrollbar-none bg-white h-fit max-h-[300px] overflow-y-auto absolute top-[72px]`}>
+      <ul className={`outline ${searchQuery && searchQuery.length > 0 ? 'outline-1 outline-cyan-500' : 'outline-none'}  scrollbar-none bg-white h-fit max-h-[300px] overflow-y-auto absolute top-[72px]`}>
         {filteredProducts.map(product => (
           <li key={product.id} className='p-4 border-cyan-500 border-b'>
             <Link to={`/products/${product.id}`} className='flex grid-col-3 justify-between items-center'>
@@ -208,3 +211,4 @@ function SearchForm({ products }) {
     </div>
   );
 }
+export default Navbars;

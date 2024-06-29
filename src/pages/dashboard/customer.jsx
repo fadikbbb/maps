@@ -36,7 +36,7 @@ function Customer() {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <img className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]' src='../../../Bean Eater@1x-1.0s-200px-200px.svg' alt=''/>;
     }
 
     if (error) {
@@ -45,10 +45,10 @@ function Customer() {
 
     return (
         <div>
-            <h2>Customers</h2>
-            <table className="table table-striped table-sm">
+            <h1 className='title'>Customers</h1>
+            <table className="table-fixed w-full">
                 <thead>
-                    <tr>
+                    <tr className='text-white h-16 bg-cyan-500'>
                         <th className='text-center align-middle mx-4'>Name</th>
                         <th className='text-center align-middle mx-4'>Email</th>
                         <th className='text-center align-middle mx-4'>first Message</th>
@@ -57,7 +57,7 @@ function Customer() {
                 </thead>
                 <tbody>
                     {customers.map((customer) => (
-                        <tr className='text-center align-middle' key={customer.id}>
+                        <tr  key={customer.id} className='text-center h-16 align-middle even:bg-gray-300 even:text-white'>
                             <td className='text-center align-middle mx-4'>{customer.name}</td>
                             <td className='text-center align-middle mx-4'>{customer.email}</td>
                             <td className='text-center align-middle mx-4'>{customer.message}</td>

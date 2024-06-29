@@ -6,7 +6,6 @@ import Products from "./pages/products";
 import Product from "./pages/product";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-import Profile from "./pages/profile";
 import Addproduct from "./pages/dashboard/addproduct";
 import Dashboard from "./pages/dashboard/dashboard";
 import Editproduct from "./pages/dashboard/editproduct";
@@ -15,13 +14,12 @@ import Customer from "./pages/dashboard/customer";
 import Cart from "./pages/cart";
 import Logout from "./pages/logout";
 import { CartProvider } from "./contexts/CartContext"; // Adjust the path as needed
-
+import NotFound from "./pages/NotFound";
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
   { path: "/logout", element: <Logout /> },
-  { path: "/profile", element: <Profile /> },
   { path: "/categories/:id", element: <Categories /> },
   { path: "/products", element: <Products /> },
   { path: "/products/:id", element: <Product /> },
@@ -31,7 +29,7 @@ const router = createBrowserRouter([
   { path: "/dashboard/editproduct/:id", element: <Editproduct /> },
   { path: "/cart", element: <Cart /> },
   { path: "/dashboard/customer", element: <Customer /> },
-  { path: "*", element: <div>Not Found</div> }
+  { path: "*", element: <NotFound /> }
 ]);
 
 function App() {

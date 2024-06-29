@@ -20,7 +20,7 @@ function Products({ right, left, data, firstProduct }) {
                 </svg>
                 <div className="products-list scrollbar-none overflow-x-auto flex w-full">
                     {data.map((product) => (
-                        <div className="product border-x-2 p-4 border-cyan-500 min-w-[400px] mx-4 my-8 flex flex-col justify-between items-center" key={product.id}>
+                        <div className="product  p-4 shadow-lg shadow-cyan-100 rounded-[25px] shadow-cyan-1 00 min-w-[400px] mx-4 my-8 flex flex-col justify-between items-center" key={product.id}>
                             <div>
                                 <img src={product.image} className="m-[auto] min-h-[150px] max-h-[150px]" alt={product.title} />
                             </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import Navbars from ".././components/navbar";
+import Navbars from "../components/navbar";
 import Products from "../components/products";
-import Services from ".././components/services";
+import Services from "../components/services";
 import About from "../components/about";
 import CategoriesCo from "../components/categoriesCo";
 import Contact from "../components/contact";
@@ -38,7 +38,7 @@ function Home() {
     }, [products]);
 
     if (loading) {
-        return <p>Loading...</p>; // Add a loading indicator
+        return <img className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]' src='../../../Bean Eater@1x-1.0s-200px-200px.svg' alt=''/>;// Add a loading indicator
     }
 
     if (error) {

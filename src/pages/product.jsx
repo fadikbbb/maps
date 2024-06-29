@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import Navbars from "../components/navbar";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
-
+import Footer from '../components/footer';
 function Product() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
@@ -42,12 +42,12 @@ function Product() {
     const increment = (e) => {
         e.preventDefault();
         setQuantity((prevQuantity) => prevQuantity + 1);
-    }
+    };
 
     const decrement = (e) => {
         e.preventDefault();
         setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
-    }
+    };
 
     const handleAddToCart = async () => {
         setAddingToCart(true);
@@ -63,11 +63,10 @@ function Product() {
         } finally {
             setAddingToCart(false);
         }
-    }
+    };
 
     if (loading) {
-        return <p className="text-center mt-10">Loading...</p>;
-    }
+        return <img className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]' src='../../../Bean Eater@1x-1.0s-200px-200px.svg' alt=''/>;}
 
     if (error) {
         return <p className="text-center mt-10 text-red-500">Error fetching product: {error.message}</p>;
@@ -81,7 +80,7 @@ function Product() {
                 {product && (
                     <div key={product.id} className="flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden">
                         <div className="md:w-1/2">
-                            <img src={product.image} className="m-auto h-auto max-h-[500px] object-cover" alt={product.title} />
+                            <img src={product.image} className="m-auto max-h-[500px] object-cover" alt={product.title} />
                         </div>
                         <div className="md:w-1/2 p-6 bg-gray-50 ">
                             <Link to={"../../categories/" + product.category} className="text-sm text-gray-600 my-4">{product.category}</Link>
@@ -97,12 +96,15 @@ function Product() {
                             <button onClick={handleAddToCart} className="w-full py-3 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition duration-300" disabled={addingToCart}>
                                 {addingToCart ? "Adding..." : "Add to Cart"}
                             </button>
-                            <Link to="/" className="block mt-4 text-center text-cyan-500 hover:underline">Back to Home</Link>
+                            <Link to="/cart" className="block mt-4 text-center text-cyan-500 hover:underline">View Cart</Link>
                         </div>
                     </div>
                 )}
+
             </div>
+            <Footer/>
         </div>
+
     );
 }
 

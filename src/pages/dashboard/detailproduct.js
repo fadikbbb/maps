@@ -1,46 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-function DetailProduct() {
-    const [data, setData] = useState([])
 
-    useEffect(() => {
-        fetch('https://6672c0d76ca902ae11b1a226.mockapi.io/shamstore/products')
-            .then(res => res.json())
-            .then(json => setData(json))
+import { Link } from 'react-router-dom';
 
-    }, [])
-    return <div><h2>Section title</h2>
-        <Link to={"/dashboard/addproduct"} className='btn btn-success my-3 d-block'>addproduct</Link>
-        <div className="table-responsive small">
-            <table className="table table-striped table-sm">
-                <thead>
-                    <tr className='text-center'>
-                        <th scope="col">id</th>
-                        <th scope="col">title</th>
-                        <th scope="col">price</th>
-                        <th scope="col">description</th>
-                        <th scope="col">category</th>
-                        <th scope="col">RUD</th>
-                    </tr>
-                </thead>
-                <tbody>{
-                    data.map(({ id, title, price, description, category }) => <tr className='text-center align-middle'>
-                        <td>{id}</td>
-                        <td>{title}</td>
-                        <td>${price}</td>
-                        <td>{description}</td>
-                        <td>{category}</td>
-                        <td className=' d-flex flex-lg-row flex-column justify-content-center'>
-                            <td ><Link to={`/products/${id}`} className=' d-flex justify-content-center btn btn-primary m-1'>view</Link></td>
-                            <td ><Link to={`/dashboard/editproduct/${id}`} className=' d-flex justify-content-center btn btn-success m-1'>update</Link></td>
-                            <td ><Link to={`/dashboard/deleteproduct/${id}`} className=' d-flex justify-content-center btn btn-danger m-1'>delete</Link></td>
-                        </td>
-                    </tr>
-                    )
-                    }
-                </tbody>
-            </table>
-        </div></div>;
+function DetailProduct({data}) {
+    
+    return (
+        <main className={`col-span-12 w-full relative md:col-span-9 lg:col-span-10 px-4  lg:px-8 ms:h-48 py-6`}>
+
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-2xl font-semibold">Dashboard</h1>
+                <div className="btn-group">
+                    <button className="btn btn-sm btn-outline-primary">Export</button>
+                </div>
+            </div>
+            <div>
+
+                <h2 className='title'>Products</h2>
+                <Link to={"/dashboard/addproduct"} className='text-center text-white hover:bg-cyan-600 duration-200 flex justify-center bg-cyan-500 rounded-lg p-3 my-8'>Add Product</Link>
+                <div className="table-responsive">
+                    <table className="table-fixed w-full">
+                        <thead>
+                            <tr className="text-center text-white bg-cyan-500">
+                                <th className='text-ellipsis overflow-hidden' scope="col">ID</th>
+                                <th className='text-ellipsis overflow-hidden' scope="col">Title</th>
+                                <th className='text-ellipsis overflow-hidden' scope="col">Price</th>
+                                <th className='text-ellipsis overflow-hidden' scope="col">Description</th>
+                                <th className='text-ellipsis overflow-hidden' scope="col">Category</th>
+                                <th className='text-ellipsis overflow-hidden md:w-[250px]' scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map(({ id, title, price, description, category }) => (
+                                <tr key={id} className="text-center align-middle odd:bg-slate-100">
+                                    <td>{id}</td>
+                                    <td className="text-ellipsis whitespace-nowrap overflow-hidden">{title}</td>
+                                    <td>${price}</td>
+                                    <td className="text-ellipsis whitespace-nowrap overflow-hidden">{description}</td>
+                                    <td>{category}</td>
+                                    <td className="flex lg:flex-row flex-col p-2 justify-center align-middle">
+                                        <Link to={`/products/${id}`} className="text-white py-2 md:px-4 rounded m-1 bg-blue-500 hover:bg-blue-700">View</Link>
+                                        <Link to={`/dashboard/editproduct/${id}`} className="text-white py-2 md:px-4 rounded m-1 bg-green-500 hover:bg-green-700">Update</Link>
+                                        <Link to={`/dashboard/deleteproduct/${id}`} className="text-white py-2 md:px-4 rounded m-1 bg-red-500 hover:bg-red-700">Delete</Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>);
 }
 
 export default DetailProduct;

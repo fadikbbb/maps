@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/navbar';
-
+import Footer from '../components/footer';
 function Categories() {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
@@ -27,7 +27,7 @@ function Categories() {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>; // Add a loading indicator
+        return <img className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]' src='../../Bean Eater@1x-1.0s-200px-200px.svg' alt=''/>; // Add a loading indicator
     }
 
     if (error) {
@@ -69,6 +69,7 @@ function Categories() {
                     )
                 ))}
             </div>
+            <Footer />
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import {Link} from 'react-router-dom'
 function EditProduct() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -72,7 +72,7 @@ function EditProduct() {
     }
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <img className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]' src='../../Animation - 1719504658142.gif' alt=''/>;
     }
 
     if (error) {
@@ -81,28 +81,30 @@ function EditProduct() {
 
     return (
         <div>
+            <h1 className='title'>edit product </h1>
             <form onSubmit={handleSubmit}>
-                <div className="form-floating mb-3">
-                    <input type="text" className="form-control" name="title" id="titleInput" placeholder="Title" value={formData.title} onChange={handleChange} />
-                    <label htmlFor="titleInput">Title</label>
+                <div className="relative mb-3">
+                    <input type="text" className="input-des" name="title" id="titleInput" placeholder="Title" value={formData.title} onChange={handleChange} />
+                    <label className='label-des' htmlFor="titleInput">Title</label>
                 </div>
-                <div className="form-floating mb-3">
-                    <input type="text" className="form-control" name="description" id="descriptionInput" placeholder="Description" value={formData.description} onChange={handleChange} />
-                    <label htmlFor="descriptionInput">Description</label>
+                <div className="relative mb-3">
+                    <input type="text" className="input-des" name="description" id="descriptionInput" placeholder="Description" value={formData.description} onChange={handleChange} />
+                    <label className='label-des' htmlFor="descriptionInput">Description</label>
                 </div>
-                <div className="form-floating mb-3">
-                    <input type="number" className="form-control" name="price" id="priceInput" placeholder="Price" value={formData.price} onChange={handleChange} />
-                    <label htmlFor="priceInput">Price</label>
+                <div className="relative mb-3">
+                    <input type="number" className="input-des" name="price" id="priceInput" placeholder="Price" value={formData.price} onChange={handleChange} />
+                    <label className='label-des' htmlFor="priceInput">Price</label>
                 </div>
-                <div className="form-floating mb-3">
-                    <input type="text" className="form-control" name="image" id="imageInput" placeholder="Image URL" value={formData.image} onChange={handleChange} />
-                    <label htmlFor="imageInput">Image</label>
+                <div className="relative mb-3">
+                    <input type="text" className="input-des" name="image" id="imageInput" placeholder="Image URL" value={formData.image} onChange={handleChange} />
+                    <label className='label-des' htmlFor="imageInput">Image</label>
                 </div>
-                <div className="form-floating mb-3">
-                    <input type="text" className="form-control" name="category" id="categoryInput" placeholder="Category" value={formData.category} onChange={handleChange} />
-                    <label htmlFor="categoryInput">Category</label>
+                <div className="relative mb-3">
+                    <input type="text" className="input-des" name="category" id="categoryInput" placeholder="Category" value={formData.category} onChange={handleChange} />
+                    <label className='label-des' htmlFor="categoryInput">Category</label>
                 </div>
-                <button type="submit" className="btn btn-primary m-auto">Submit</button>
+                <button type="submit" className="btn-lightgreen">Submit</button>
+         <Link to={"/dashboard"} className="text-blue-500 hover:text-blue-700 mx-4">go back</Link>
             </form>
         </div>
     );
